@@ -4,7 +4,7 @@ async function createToken(user_id) {
   const token = await jwt.sign({
     user_id
   }, process.env.JWT_SECRET, { expiresIn: '10m' });
-
+  console.log('que sale aqui',token);
   return token;
 }
 
