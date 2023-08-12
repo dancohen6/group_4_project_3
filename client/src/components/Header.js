@@ -24,6 +24,7 @@ function Header(props) {
         <NavLink to="/">Home</NavLink>
         {props.state.user ? (
           <>
+          <NavLink to="/game">Game</NavLink>
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink onClick={logout} to="/logout">Log Out</NavLink>
           </>
