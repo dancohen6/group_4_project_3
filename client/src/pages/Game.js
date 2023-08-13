@@ -1,5 +1,4 @@
 
-
 import {useEffect, useState} from 'react'
 import ScoreBoard from '../components/ScoreBoard'
 import blueCandy from '../images/blue-candy.png'
@@ -195,4 +194,6 @@ const Crush = () => {
     )
 }
 
-export default Crush
+export default Crush;
+
+

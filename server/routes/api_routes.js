@@ -130,4 +130,16 @@ router.get('/notes', async (req, res) => {
   res.send({ notes });
 });
 
+router.delete('/note/:id', async (req, res) => {
+  try {
+    const noteId = req.params.id;
+   
+    await Note.findByIdAndDelete(noteId);
+    res.sendStatus(204); 
+  } catch (error) {
+    console.error('Error deleting note:', error);
+    res.status(500).json({ message: 'An error occurred while deleting the note.' });
+  }
+});
+
 module.exports = router;

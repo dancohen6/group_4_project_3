@@ -13,9 +13,9 @@ function Landing(props) {
 
   return (
     <main className="landing">
-      <h1 className="text-center">Welcome to the future in note taking!</h1>
+      <h1 className="text-center">Candy Crush!</h1>
 
-      <h3>See what notes others are taking:</h3>
+      <h3></h3>
 
       <div className="notes">
         {!notes.length && <p>No notes have been added.</p>}

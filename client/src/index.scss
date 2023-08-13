@@ -38,9 +38,7 @@ body {
 }
 
 // Global Classes
-.row, .column {
-  display: flex;
-}
+
 
 .column {
   flex-direction: column;
@@ -102,7 +100,17 @@ header {
 main {
   padding: 0 3%;
 }
+.landing{
 
+  background-image: url('./images/homePage1.png');
+  width: 560px;
+  height: 560px;
+  display: flex;
+  flex-wrap: wrap;
+
+
+  
+}
 .landing, .dashboard {
   h1, h3 {
     margin-bottom: 25px;
@@ -127,13 +135,13 @@ form {
     padding: 5px 10px;
     margin-bottom: 5px;
   } 
-  button {
-    border: none;
-    padding: 8px 10px;
-    font-size: .98rem;
-    background: #1ddd85;
-    color: #fff;
-  }
+  // button {
+  //   border: none;
+  //   padding: 8px 10px;
+  //   font-size: .98rem;
+  //   background: #1ddd85;
+  //   color: #fff;
+  // }
 }
 
 .notes {
@@ -147,4 +155,8 @@ form {
       margin: 4px 0;
     }
   }
+}
+.dashboardGame {
+  display :flex;
+  flex-direction: row-reverse;
 }

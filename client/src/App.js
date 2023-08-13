@@ -49,15 +49,13 @@ function App() {
           </Redirect>
         )} />
 
-        <Route path="/game" element={(
+    
+          <Route path="/dashboard" element={(
           <Redirect user={state.user}>
-            <Game setState={setState} />
-          </Redirect>
-        )} />
-
-        <Route path="/dashboard" element={(
-          <Redirect user={state.user}>
-            <Dashboard state={state} setState={setState} />
+            <div className= 'dashboardGame' >
+              <Dashboard state={state} setState={setState} />
+              <Game />
+            </div>
           </Redirect>
         )} />
 

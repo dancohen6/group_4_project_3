@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons'; 
+
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -28,19 +31,32 @@ function Dashboard(props) {
     });
   }
 
+  const deleteTask = (noteId) => {
+    
+    const updatedNotes = props.state.user.notes.filter(note => note._id !== noteId);
+    console.log(updatedNotes);
+
+    axios.delete(`/api/note/${noteId}`)
+      .then(() => {
+        props.setState(oldState => ({
+          ...oldState,
+          user: {
+            ...oldState.user,
+            notes: updatedNotes
+          }
+        }));
+      })
+      .catch(error => {
+        console.error("Error deleting note:", error);
+      });
+  };
+  
+
 
   return (
     <main className="dashboard">
       <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-
-      <form onSubmit={handleSubmit} className="column dashboard-form">
-        <h2 className="text-center">Create a Note</h2>
-        <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Enter your note text" />
-        <button>Submit</button>
-      </form>
-
-      <h3>Here are your saved notes:</h3>
-
+      <h2 className="text-center">Share your tips to beat Candy Crush</h2>
       <div className="notes">
         {!props.state.user.notes.length && <p>No notes have been added.</p>}
 
@@ -49,10 +65,17 @@ function Dashboard(props) {
             <h3>{note.text}</h3>
             <div className="column">
               <p>Added On: {note.createdAt}</p>
+              <button onClick={() => deleteTask(note._id)}>delete</button>
             </div>
           </div>
         ))}
       </div>
+      <form onSubmit={handleSubmit} className="column dashboard-form">
+        <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
+        <button >
+        <FontAwesomeIcon icon={faSquareCaretRight} />
+          </button>
+      </form>
     </main>
   )
 }
