@@ -14,7 +14,7 @@ import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Game from './pages/Game';
-
+import Payment from './pages/Payment';
 
 function App() {
   const [state, setState] = useState({
@@ -46,6 +46,7 @@ function App() {
         <Route path="/auth" element={(
           <Redirect user={state.user}>
             <AuthForm setState={setState} />
+            <Payment/>
           </Redirect>
         )} />
 

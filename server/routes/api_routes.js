@@ -1,5 +1,8 @@
 const router = require('express').Router();
+const Stripe = require('stripe')
 const { createToken, validateToken } = require('../auth');
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 
 const User = require('../models/User');
@@ -129,7 +132,25 @@ router.get('/notes', async (req, res) => {
 
   res.send({ notes });
 });
+//payment received
+router.post('/payment',  async (req,  res) =>{
+  try{
+    const { id, amount} = req.body
+    await stripe.paymentIntents.create({
+    amount,
+    currency: 'USD',
+    payment_method: id,
+    confirm: true
+    })
+    console.log('Payment successfull');
+    res.send({message: 'Succesfull payment'})
+  }catch(error) {
+    console.error('Error with your payment:', error);
+    res.status(500).json({ message: error.raw.message});
+  }
+});
 
+//delete notes
 router.delete('/note/:id', async (req, res) => {
   try {
     const noteId = req.params.id;
@@ -142,4 +163,7 @@ router.delete('/note/:id', async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
+

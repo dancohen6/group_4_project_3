@@ -17,7 +17,7 @@ function Header(props) {
 
   return (
     <header className="row justify-between align-center">
-      <h3>Note App</h3>
+      <h3>Candy Crush</h3>
 
       <nav className="row">
         {props.state.user && <p className="header-username">Welcome, {props.state.user.username}</p>}
