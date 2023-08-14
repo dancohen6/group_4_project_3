@@ -46,7 +46,7 @@ function App() {
         <Route path="/auth" element={(
           <Redirect user={state.user}>
             <AuthForm setState={setState} />
-            <Payment/>
+           
           </Redirect>
         )} />
 
@@ -57,6 +57,11 @@ function App() {
               <Dashboard state={state} setState={setState} />
               <Game />
             </div>
+          </Redirect>
+        )} />
+         <Route path="/payment" element={(
+          <Redirect user={state.user}>
+            <Payment setState={setState} />
           </Redirect>
         )} />
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 
 function Landing(props) {
   const [notes, setNotes] = useState([]);
@@ -15,21 +17,11 @@ function Landing(props) {
     <main className="landing">
       <h1 className="text-center">Candy Crush!</h1>
 
-      <h3></h3>
+      <Link to="/payment">
+      <button className='botton-leve2'>level 2</button>
+      </Link>
 
-      <div className="notes">
-        {!notes.length && <p>No notes have been added.</p>}
-
-        {notes.map(note => (
-          <div key={note._id} className="note column">
-            <h3>{note.text}</h3>
-            <div className="column">
-              <p>Added On: {note.createdAt}</p>
-              <p>Added By: {note.author.username}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+        
     </main>
   )
 }
