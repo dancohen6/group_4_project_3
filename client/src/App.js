@@ -16,6 +16,7 @@ import NotFound from './pages/NotFound';
 import Game from './pages/Game';
 import Payment from './pages/Payment';
 
+
 function App() {
   const [state, setState] = useState({
     user: null,
