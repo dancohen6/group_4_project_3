@@ -14,7 +14,7 @@ function Landing(props) {
   
   return (
     <main className="landing">
-      <h1 className="text-center">Candy Dream!</h1>
+      <h1 className="text-center">Sugarland Shuffle!</h1>
       <Link to="/auth" className="landing-link">Login or Register</Link>
 
     </main>
