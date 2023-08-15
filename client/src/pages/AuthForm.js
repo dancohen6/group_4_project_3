@@ -70,7 +70,7 @@ function AuthForm(props) {
   };
 
   return (
-    <>
+    <div className='login-page'>
       <h1 className="text-center">{formData.isLogin ? 'Log In' : 'Register'}</h1>
 
       <form onSubmit={handleSubmit} className="column">
@@ -118,7 +118,7 @@ function AuthForm(props) {
             checked={!formData.isLogin} />
         </div>
       </form>
-    </>
+    </div>
   )
 }
 
