@@ -3,8 +3,9 @@ import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import axios from 'axios';
 import HighScore from '../components/HighScore';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useEffect } from 'react';
-import Game from './Game'
+import Game from './Game';
 
 const Dashboard = (props) => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const Dashboard = (props) => {
     setFormData({
       text: ''
     });
-  }
+  };
 
   const deleteTask = (noteId) => {
     const updatedNotes = props.state.user.notes.filter(note => note._id !== noteId);
@@ -76,26 +77,28 @@ const Dashboard = (props) => {
         </div>
 
         <div className="form-container">
+          <Link to="/payment">
+            <button className='botton-leve2'>level 2</button>
+          </Link>
+          <Link to="/">
+            <button className='back-home'>home</button>
+          </Link>
+          <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
+
           <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-          <h2 className="text-center">Share your tips to beat Sugar Land Shuffle</h2>
+          <h2 className="text-center">Share your tips to beat Candy Crush</h2>
           <div className="notes">
-            {!props.state.user.notes.length && <p className="text-center">No notes have been added.</p>}
+            {!props.state.user.notes.length && <p>No notes have been added.</p>}
 
             {props.state.user.notes.map(note => (
-              <div key={note._id} className="note column text-center">
+              <div key={note._id} className="note column">
                 <h3>{note.text}</h3>
                 <div className="column">
-                  <p>Added By: {note.author}</p>
-                  <button
-                    onClick={() => deleteTask(note._id)}
-                    className="delete-button"
-                  >
-                    Delete
-                  </button>
+                  <p>Added On: {note.createdAt}</p>
+                  <button onClick={() => deleteTask(note._id)}>delete</button>
                 </div>
               </div>
             ))}
-
           </div>
           <form onSubmit={handleSubmit} className="column dashboard-form">
             <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
@@ -111,6 +114,5 @@ const Dashboard = (props) => {
     </main>
   );
 };
-
 
 export default Dashboard;

@@ -171,12 +171,34 @@
    }
  }
 
- .app {
-   background-color: #87CEEB;
-   background-image: url('./images/4173737.jpg');
-   border-radius: 15px;
-   padding: 20px;
- }
+
+.game-container {
+  position: relative;
+}
+
+.background-overlay {
+  border: 10px solid red;
+  position: absolute;
+  top: -15px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  background-color: #87CEEB;
+  background-image: url('./images/4173737.jpg'); 
+  opacity: 80%;
+  z-index: 0; 
+  pointer-events: none;
+}
+
+.game {
+  position: relative; 
+  z-index: 1; 
+
+}
+
+.score {
+  border: 10px solid blue;
+}
 
  .dashboard {
    color: #b83cff;
@@ -228,57 +250,14 @@
    flex-direction: row-reverse;
  }
 
-//  #root {
-//    display: flex;
-//    flex-direction: column;
-//    justify-content: center;
-//    align-items: center;
-//    font-family: 'Lobster', cursive;
-//    font-size: 2rem;
-//    color: #b83cff;
-//    text-shadow: 2px 2px 4px #fff;
-//    background-image: url('./images/vecteezy_iced-confectionery-scene_.jpg');
-//  }
-
-.small-score-button {
-  font-size: 12px;
-  padding: 5px 10px;
-}
-
-.dashboard-content {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start; 
-}
-
-.game-container {
-  flex: 3; 
-  margin-right: 20px; 
-}
-
-.form-container {
-  flex: 1; 
-  text-align: center;
-  align-items: center;
-}
-
-.text-center{
-  text-align: center;
-}
-
-.score-padding{
-  padding-top: 50px;
-}
-
-.delete-button {
-  background-color: #f4331e;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
-}
+ .login-page {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Lobster', cursive;
+   font-size: 2rem;
+   color: #b83cff;
+   text-shadow: 2px 2px 4px #fff;
+   background-image: url('./images/vecteezy_iced-confectionery-scene_.jpg');
+ }

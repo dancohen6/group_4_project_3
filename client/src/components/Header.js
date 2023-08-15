@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 function Header(props) {
+  const currentLocation = useLocation();
   const logout = async e => {
     e.preventDefault();
 
@@ -20,9 +21,10 @@ function Header(props) {
 
       <nav className="nav">
         {props.state.user && <p className="header-username">Welcome, {props.state.user.username}</p>}
+        {currentLocation.pathname !== '/' && <NavLink to="/">Home</NavLink>}
         {props.state.user ? (
           <>
-          
+            
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink onClick={logout} to="/logout">Log Out</NavLink>
           </>
