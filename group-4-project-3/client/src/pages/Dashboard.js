@@ -6,6 +6,20 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function Dashboard(props) {
+
+  const [userScore, setUserScore] = useState(0); // State to store user's score
+
+  useEffect(() => {
+    // Fetch the user's score from the backend
+    axios.get(`/api/user/${props.state.user._id}`)
+      .then(res => {
+        setUserScore(res.data.score);
+      })
+      .catch(error => {
+        console.error('Error fetching user score:', error);
+      });
+  }, [props.state.user._id]);
+
   const [formData, setFormData] = useState({
     text: ''
   });
@@ -82,6 +96,11 @@ function Dashboard(props) {
         <FontAwesomeIcon icon={faSquareCaretRight} />
           </button>
       </form>
+
+      {/* Display the ScoreBoard component with the score */}
+      <ScoreBoard score={userScore} />
+      <Game user={props.user} updateScore={updateScore} />
+      
     </main>
   )
 }

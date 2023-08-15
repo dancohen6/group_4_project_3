@@ -190,6 +190,7 @@ const Crush = () => {
                 ))}
             </div>
             <ScoreBoard score={scoreDisplay}/>
+            <button onClick={() => saveScore(scoreDisplay)}>Save Score</button>
         </div>
     )
 }
