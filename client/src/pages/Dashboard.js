@@ -86,7 +86,7 @@ const Dashboard = (props) => {
             <button title="install" className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
           </div>
       <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-      <h2 className="text-center">Share your tips to beat Candy Crush</h2>
+      <h2 className="text-center">Share your tips to beat Sugarland Shuffle</h2>
       <div className="notes">
         {!props.state.user.notes.length && <p className="text-center">No notes have been added.</p>}
 
