@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Landing(props) {
@@ -13,7 +14,8 @@ function Landing(props) {
   
   return (
     <main className="landing">
-      <h1 className="text-center">Candy Crush!</h1>
+      <h1 className="text-center">Candy Dream!</h1>
+      <Link to="/auth" className="landing-link">Login or Register</Link>
 
     </main>
   )
