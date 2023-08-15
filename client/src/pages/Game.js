@@ -203,7 +203,7 @@ const Crush = (props) => {
             </div>
             <ScoreBoard score={scoreDisplay}/>
         
-            <button onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
+            <button className="small-score-button" onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
 
 
         </div>

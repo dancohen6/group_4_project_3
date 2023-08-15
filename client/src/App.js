@@ -38,7 +38,7 @@ function App() {
   return (
  
     <>
-      <Header state={state} setState={setState} />
+      {/* <Header state={state} setState={setState} />  header was applying to all pages*/}
 
       {state.loading && <Loading />}
 

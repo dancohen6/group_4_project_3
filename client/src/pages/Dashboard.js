@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons'; 
+import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import axios from 'axios';
-import ScoreBoard from '../components/ScoreBoard';
+import HighScore from '../components/HighScore';
 import { useEffect } from 'react';
 import Game from './Game'
 
@@ -48,7 +48,7 @@ const Dashboard = (props) => {
 
   const deleteTask = (noteId) => {
     const updatedNotes = props.state.user.notes.filter(note => note._id !== noteId);
-    
+
     axios.delete(`/api/note/${noteId}`)
       .then(() => {
         props.setState(oldState => ({
@@ -70,33 +70,47 @@ const Dashboard = (props) => {
 
   return (
     <main className="dashboard">
-      <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-      <h2 className="text-center">Share your tips to beat Candy Crush</h2>
-      <div className="notes">
-        {!props.state.user.notes.length && <p>No notes have been added.</p>}
+      <div className="dashboard-content">
+        <div className="game-container">
+          <Game user={props.user} updateScore={updateScore} />
+        </div>
 
-        {props.state.user.notes.map(note => (
-          <div key={note._id} className="note column">
-            <h3>{note.text}</h3>
-            <div className="column">
-              <p>Added On: {note.createdAt}</p>
-              <button onClick={() => deleteTask(note._id)}>delete</button>
-            </div>
+        <div className="form-container">
+          <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
+          <h2 className="text-center">Share your tips to beat Sugar Land Shuffle</h2>
+          <div className="notes">
+            {!props.state.user.notes.length && <p className="text-center">No notes have been added.</p>}
+
+            {props.state.user.notes.map(note => (
+              <div key={note._id} className="note column text-center">
+                <h3>{note.text}</h3>
+                <div className="column">
+                  <p>Added By: {note.author}</p>
+                  <button
+                    onClick={() => deleteTask(note._id)}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+
           </div>
-        ))}
-      </div>
-      <form onSubmit={handleSubmit} className="column dashboard-form">
-        <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
-        <button>
-          <FontAwesomeIcon icon={faSquareCaretRight} />
-        </button>
-      </form>
+          <form onSubmit={handleSubmit} className="column dashboard-form">
+            <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
+            <button>
+              <FontAwesomeIcon icon={faSquareCaretRight} />
+            </button>
+          </form>
 
-      {/* Display the ScoreBoard component with the score */}
-      <ScoreBoard score={userScore} />
-      <Game user={props.user} updateScore={updateScore} />
+          {/* Display the ScoreBoard component with the score */}
+          <HighScore score={userScore} />
+        </div>
+      </div>
     </main>
   );
-}
+};
+
 
 export default Dashboard;
