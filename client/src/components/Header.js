@@ -16,12 +16,10 @@ function Header(props) {
   }
 
   return (
-    <header className="row justify-between align-center">
-      <h3>Candy Crush</h3>
+    <header className="header">
 
-      <nav className="row">
+      <nav className="nav">
         {props.state.user && <p className="header-username">Welcome, {props.state.user.username}</p>}
-        <NavLink to="/">Home</NavLink>
         {props.state.user ? (
           <>
           
@@ -29,7 +27,9 @@ function Header(props) {
             <NavLink onClick={logout} to="/logout">Log Out</NavLink>
           </>
         ) : (
+          <div className="link-container">
           <NavLink to="/auth">Login or Register</NavLink>
+          </div>
         )}
       </nav>
     </header>

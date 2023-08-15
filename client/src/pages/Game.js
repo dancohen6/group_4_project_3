@@ -175,7 +175,7 @@ const Crush = (props) => {
         try {
           await axios.post('/api/score', { userId: props.user._id, score });
           console.log('Score saved');
-          props.updateScore(score); // Add this line
+          props.updateScore(score);
         } catch (error) {
           console.error('Error saving score:', error);
         }
@@ -202,8 +202,8 @@ const Crush = (props) => {
                 ))}
             </div>
             <ScoreBoard score={scoreDisplay}/>
-            {/* <Dashboard scoreDisplay={scoreDisplay} /> */}
-            <button onClick={() => saveScore(scoreDisplay)}>Save Score</button>
+        
+            <button onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
 
 
         </div>
