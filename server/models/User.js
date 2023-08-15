@@ -19,6 +19,10 @@ const userSchema = new Schema({
     required: true,
     min: [6, 'Password must be at least 6 characters in length']
   },
+  score: {
+    type: Number,
+    default: 0
+  },
   notes: [
     {
       type: Types.ObjectId,

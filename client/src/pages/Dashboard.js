@@ -1,10 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons'; 
-
 import { useState } from 'react';
 import axios from 'axios';
+import ScoreBoard from '../components/ScoreBoard';
+import { useEffect } from 'react';
+import Game from './Game'
 
-function Dashboard(props) {
+const Dashboard = (props) => {
   const [formData, setFormData] = useState({
     text: ''
   });
@@ -15,6 +17,19 @@ function Dashboard(props) {
       text: e.target.value
     });
   };
+
+  const [userScore, setUserScore] = useState(0); // State to store user's score
+
+  useEffect(() => {
+    // Fetch the user's score from the backend
+    axios.get(`/api/user/${props.state.user._id}`)
+      .then(res => {
+        setUserScore(res.data.score);
+      })
+      .catch(error => {
+        console.error('Error fetching user score:', error);
+      });
+  }, [props.state.user._id]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -32,10 +47,8 @@ function Dashboard(props) {
   }
 
   const deleteTask = (noteId) => {
-    
     const updatedNotes = props.state.user.notes.filter(note => note._id !== noteId);
-    console.log(updatedNotes);
-
+    
     axios.delete(`/api/note/${noteId}`)
       .then(() => {
         props.setState(oldState => ({
@@ -50,8 +63,10 @@ function Dashboard(props) {
         console.error("Error deleting note:", error);
       });
   };
-  
 
+  const updateScore = (newScore) => {
+    setUserScore(newScore);
+  };
 
   return (
     <main className="dashboard">
@@ -72,13 +87,16 @@ function Dashboard(props) {
       </div>
       <form onSubmit={handleSubmit} className="column dashboard-form">
         <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
-        <button >
-        <FontAwesomeIcon icon={faSquareCaretRight} />
-          </button>
+        <button>
+          <FontAwesomeIcon icon={faSquareCaretRight} />
+        </button>
       </form>
+
+      {/* Display the ScoreBoard component with the score */}
+      <ScoreBoard score={userScore} />
+      <Game user={props.user} updateScore={updateScore} />
     </main>
-  )
+  );
 }
 
 export default Dashboard;
-

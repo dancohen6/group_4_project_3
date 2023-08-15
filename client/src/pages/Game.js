@@ -1,4 +1,4 @@
-
+import Dashboard from './Dashboard'
 import {useEffect, useState} from 'react'
 import ScoreBoard from '../components/ScoreBoard'
 import blueCandy from '../images/blue-candy.png'
@@ -8,6 +8,8 @@ import purpleCandy from '../images/purple-candy.png'
 import redCandy from '../images/red-candy.png'
 import yellowCandy from '../images/yellow-candy.png'
 import blank from '../images/blank.png'
+import axios from 'axios';
+
 
 const width = 8
 const candyColors = [
@@ -19,7 +21,7 @@ const candyColors = [
     greenCandy
 ]
 
-const Crush = () => {
+const Crush = (props) => {
     const [currentColorArrangement, setCurrentColorArrangement] = useState([])
     const [squareBeingDragged, setSquareBeingDragged] = useState(null)
     const [squareBeingReplaced, setSquareBeingReplaced] = useState(null)
@@ -169,6 +171,16 @@ const Crush = () => {
         return () => clearInterval(timer)
     }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
 
+    const saveScore = async (score) => {
+        try {
+          await axios.post('/api/score', { userId: props.user._id, score });
+          console.log('Score saved');
+          props.updateScore(score); // Add this line
+        } catch (error) {
+          console.error('Error saving score:', error);
+        }
+      };
+
 
     return (
         <div className="app">
@@ -190,6 +202,10 @@ const Crush = () => {
                 ))}
             </div>
             <ScoreBoard score={scoreDisplay}/>
+            {/* <Dashboard scoreDisplay={scoreDisplay} /> */}
+            <button onClick={() => saveScore(scoreDisplay)}>Save Score</button>
+
+
         </div>
     )
 }
