@@ -15,13 +15,15 @@ function Landing(props) {
 
   return (
     <main className="landing">
-      <h1 className="text-center">Candy Crush!</h1>
+      <h1 className="text-center">Candy Dream!</h1>
+      <Link to="/auth" className="landing-link">Login or Register</Link>
 
-      <Link to="/payment">
-      <button className='botton-leve2'>level 2</button>
-      </Link>
+      <div className='link-container'>
+        <Link to="/payment">
+          <button className='button-leve2'>level 2</button>
+        </Link>
+      </div>
 
-        
     </main>
   )
 }
