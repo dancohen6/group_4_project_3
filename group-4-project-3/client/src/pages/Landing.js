@@ -18,11 +18,7 @@ function Landing(props) {
       <h1 className="text-center">Candy Dream!</h1>
       <Link to="/auth" className="landing-link">Login or Register</Link>
 
-      <div className='link-container'>
-        <Link to="/payment">
-          <button className='button-leve2'>level 2</button>
-        </Link>
-      </div>
+      
 
     </main>
   )

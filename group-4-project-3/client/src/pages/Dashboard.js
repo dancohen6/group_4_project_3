@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons'; 
+import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -55,6 +56,11 @@ function Dashboard(props) {
 
   return (
     <main className="dashboard">
+      <div className='link-container'>
+        <Link to="/payment">
+          <button className='button-leve2'>level 2</button>
+        </Link>
+      </div>
       <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
       <h2 className="text-center">Share your tips to beat Candy Crush</h2>
       <div className="notes">
