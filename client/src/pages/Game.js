@@ -172,26 +172,32 @@ const Crush = () => {
 
     return (
         <div className="app">
-            <div className="game">
-                {currentColorArrangement.map((candyColor, index) => (
-                    <img
-                        key={index}
-                        src={candyColor}
-                        alt={candyColor}
-                        data-id={index}
-                        draggable={true}
-                        onDragStart={dragStart}
-                        onDragOver={(e) => e.preventDefault()}
-                        onDragEnter={(e) => e.preventDefault()}
-                        onDragLeave={(e) => e.preventDefault()}
-                        onDrop={dragDrop}
-                        onDragEnd={dragEnd}
-                    />
-                ))}
+            <div className="game-container">
+                <div className="background-overlay"></div>
+                <div className="game">
+                    {currentColorArrangement.map((candyColor, index) => (
+                        <img
+                            key={index}
+                            src={candyColor}
+                            alt={candyColor}
+                            data-id={index}
+                            draggable={true}
+                            onDragStart={dragStart}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDragEnter={(e) => e.preventDefault()}
+                            onDragLeave={(e) => e.preventDefault()}
+                            onDrop={dragDrop}
+                            onDragEnd={dragEnd}
+                        />
+                    ))}
+                </div>
+             
+                <ScoreBoard score={scoreDisplay}/>
             </div>
-            <ScoreBoard score={scoreDisplay}/>
         </div>
     )
+    
+    
 }
 
 export default Crush;
