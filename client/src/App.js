@@ -15,6 +15,8 @@ import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Game from './pages/Game';
 import Payment from './pages/Payment';
+import DashboardLevel2 from './pages/DashboardLevel2';
+import GameLevel2 from './pages/GameLevel2';
 
 
 function App() {
@@ -65,6 +67,14 @@ function App() {
             <Payment setState={setState} />
           </Redirect>
         )} />
+         <Route path="/dashboard2" element={(
+          <Redirect user={state.user}>
+            <div className= 'dashboardGameLeve2' >
+              <DashboardLevel2 state={state} setState={setState} />
+              <GameLevel2 />
+            </div>
+          </Redirect>
+         )} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

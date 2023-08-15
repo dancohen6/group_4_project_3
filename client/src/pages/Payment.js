@@ -2,6 +2,7 @@ import {Elements, CardElement, useStripe, useElements} from '@stripe/react-strip
 import {loadStripe} from '@stripe/stripe-js';
 import axios from 'axios';
 import React, { useState } from 'react'; 
+import { Link, useNavigate } from 'react-router-dom';
 
 const stripePromise = loadStripe("pk_test_51NekCfBxZmki6S6GjzByJlRglAe6uu4F370kEPLNSE7oJCZMINnKTBoXDJzJcKz0mqUrwUJG7qpqJl5S2mRxJ9Rr00O3vzXl7b")
 
@@ -9,6 +10,7 @@ const CheckoutForm = ({ setPurchaseSuccess }) => {
 
    const stripe = useStripe();
    const elements = useElements();
+   const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -50,11 +52,15 @@ const CheckoutForm = ({ setPurchaseSuccess }) => {
 
 function Payment() {
     const [purchaseSuccess, setPurchaseSuccess] = useState(false);
-
+    const navigate = useNavigate();
+    
     setTimeout(() => {
         setPurchaseSuccess(false);
      }, 3500);
       
+     if (purchaseSuccess) {
+        navigate('/dashboard2');
+    }
     
  
     return (
@@ -62,6 +68,7 @@ function Payment() {
             {purchaseSuccess ? ( 
                 <div>
                     <p>Succesfull payment</p>
+                    
 
                 </div>
             ) : (

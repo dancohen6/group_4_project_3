@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCaretRight } from '@fortawesome/free-solid-svg-icons'; 
-import { Link } from 'react-router-dom';
+
 
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Dashboard(props) {
   
@@ -103,12 +104,11 @@ function Dashboard(props) {
 
   return (
     <main className="dashboard">
-       <Link to="/payment">
-        <button className='botton-leve2'>level 2</button>
-      </Link>
-      <Link to="/">
-        <button className='back-home'>home</button>
+
+         <Link to="/dashboard">
+        <button className='back-home'>leve 1</button>
         </Link>
+      
       <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
 
       <h1 className="text-center">Welcome, {props.state.user.username}!</h1>

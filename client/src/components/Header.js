@@ -24,7 +24,7 @@ function Header(props) {
         {currentLocation.pathname !== '/' && <NavLink to="/">Home</NavLink>}
         {props.state.user ? (
           <>
-          
+            
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink onClick={logout} to="/logout">Log Out</NavLink>
           </>
