@@ -163,6 +163,36 @@ router.delete('/note/:id', async (req, res) => {
   }
 });
 
+// Route to save a user's score
+router.post('/score', async (req, res) => {
+  const { userId, score } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, { $set: { score } }, { new: true });
+    return res.json({ user });
+  } catch (error) {
+    console.error('Error saving score:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Route to fetch a user's score
+router.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.json({ score: user.score });
+  } catch (error) {
+    console.error('Error fetching user score:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 
 module.exports = router;
