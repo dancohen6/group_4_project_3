@@ -171,12 +171,34 @@
    }
  }
 
- .app {
-   background-color: #87CEEB;
-   background-image: url('./images/4173737.jpg');
-   border-radius: 15px;
-   padding: 20px;
- }
+
+.game-container {
+  position: relative;
+}
+
+.background-overlay {
+  border: 10px solid red;
+  position: absolute;
+  top: -15px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  background-color: #87CEEB;
+  background-image: url('./images/4173737.jpg'); 
+  opacity: 80%;
+  z-index: 0; 
+  pointer-events: none;
+}
+
+.game {
+  position: relative; 
+  z-index: 1; 
+
+}
+
+.score {
+  border: 10px solid blue;
+}
 
  .dashboard {
    color: #b83cff;
