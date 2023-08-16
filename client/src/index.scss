@@ -273,6 +273,15 @@ form {
  align-items: center;
  margin-top: 5px;
 }
+
+.score-div-lvl-two {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  margin-left: 10px;
+ }
+ 
 .score-header {
  margin-bottom: 0% !important;
 }
