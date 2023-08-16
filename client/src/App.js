@@ -68,7 +68,7 @@ function App() {
          <Route path="/dashboard2" element={(
           <Redirect user={state.user}>
             <div className= 'dashboardGameLeve2 dashboardGame' >
-              <DashboardLevel2 state={state} setState={setState} />
+              <DashboardLevel2 state={state} setState={setState} user={state.user}/>
               
             </div>
           </Redirect>
