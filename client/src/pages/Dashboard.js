@@ -112,7 +112,7 @@ const Dashboard = (props) => {
         </button>
       </form>
 
-      {/* Display the ScoreBoard component with the score */}
+      {/* Display ScoreBoard component with the score */}
       <HighScore score={userScore} />
     </div>
       </div >
