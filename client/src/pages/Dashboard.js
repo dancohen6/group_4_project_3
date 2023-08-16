@@ -6,8 +6,22 @@ import HighScore from '../components/HighScore';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useEffect } from 'react';
 import Game from './Game';
+import { useLocation } from 'react-router-dom';
 
 const Dashboard = (props) => {
+  const currentLocation = useLocation();
+  const logout = async e => {
+    e.preventDefault();
+
+    await axios.get('/api/logout');
+
+    props.setState((oldState) => {
+      return {
+        ...oldState,
+        user: null
+      }
+    })
+  }
   const [formData, setFormData] = useState({
     text: ''
   });
@@ -83,10 +97,13 @@ const Dashboard = (props) => {
           <Link to="/">
             <button className='back-home'>home</button>
           </Link>
+          <Link  
+            onClick={logout} to="/logout">Log Out
+          </Link>
           <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
 
           <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-          <h2 className="text-center">Share your tips to beat Candy Crush</h2>
+          <h2 className="text-center">Share your tips to beat Sugarland Shuffle!</h2>
           <div className="notes">
             {!props.state.user.notes.length && <p>No notes have been added.</p>}
 

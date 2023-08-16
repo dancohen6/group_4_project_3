@@ -2,7 +2,7 @@ import {Elements, CardElement, useStripe, useElements} from '@stripe/react-strip
 import {loadStripe} from '@stripe/stripe-js';
 import axios from 'axios';
 import React, { useState } from 'react'; 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const stripePromise = loadStripe("pk_test_51NekCfBxZmki6S6GjzByJlRglAe6uu4F370kEPLNSE7oJCZMINnKTBoXDJzJcKz0mqUrwUJG7qpqJl5S2mRxJ9Rr00O3vzXl7b")
 

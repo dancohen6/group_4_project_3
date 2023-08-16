@@ -1,4 +1,4 @@
-import Dashboard from './Dashboard'
+
 import {useEffect, useState} from 'react'
 import ScoreBoard from '../components/ScoreBoard'
 import blueCandy from '../images/blue-candy.png'

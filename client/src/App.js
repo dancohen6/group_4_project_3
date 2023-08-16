@@ -5,7 +5,6 @@ import axios from 'axios';
 
 // components
 import Loading from './components/Loading';
-import Header from './components/Header';
 import Redirect from './components/Redirect';
 
 // pages
@@ -13,7 +12,6 @@ import AuthForm from './pages/AuthForm';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
-import Game from './pages/Game';
 import Payment from './pages/Payment';
 import DashboardLevel2 from './pages/DashboardLevel2';
 import GameLevel2 from './pages/GameLevel2';
@@ -71,7 +69,7 @@ function App() {
           <Redirect user={state.user}>
             <div className= 'dashboardGameLeve2' >
               <DashboardLevel2 state={state} setState={setState} />
-              <GameLevel2 />
+              
             </div>
           </Redirect>
          )} />

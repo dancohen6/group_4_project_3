@@ -110,20 +110,28 @@ router.get('/logout', (req, res) => {
 /*** Note routes ***/
 // Create a note
 router.post('/note', isAuthenticated, async (req, res) => {
-  const note = await Note.create({
-    text: req.body.text,
-    author: req.user._id
-  });
+  try {
+    const note = await Note.create({
+      text: req.body.text,
+      author: req.user._id
+    });
 
-  const user = await User.findByIdAndUpdate(req.user._id, {
-    $push: {
-      notes: note._id
-    }
-  }, { new: true }).populate('notes');
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        notes: note._id
+      }
+    }, { new: true }).populate('notes');
 
-  res.send({
-    user
-  });
+    res.send({
+      user
+    });
+  } catch (error) {
+    console.error('Error creating note:', error);
+    res.status(500).send({
+      error: true,
+      message: 'An error occurred while creating the note.'
+    });
+  }
 });
 
 // Get All Notes
