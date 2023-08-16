@@ -10,19 +10,21 @@ import GameLevel2 from './GameLevel2';
 import { useLocation } from 'react-router-dom';
 
 function Dashboard(props) {
-  const currentLocation = useLocation();
-  const logout = async e => {
-    e.preventDefault();
-
-    await axios.get('/api/logout');
-
-    props.setState((oldState) => {
-      return {
-        ...oldState,
-        user: null
-      }
-    })
-  }
+  // const logout = async e => {
+  //   e.preventDefault();
+  
+  //   try {
+  //     await axios.get('/api/logout');
+      
+  //     props.setState(oldState => ({
+  //       ...oldState,
+  //       user: null
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error logging out:', error);
+  //   }
+  // };
+  
   
   
   const [formData, setFormData] = useState({
@@ -37,16 +39,18 @@ function Dashboard(props) {
   };
    const [userScore, setUserScore] = useState(0); // State to store user's score
 
-  useEffect(() => {
-    // Fetch the user's score from the backend
-    axios.get(`/api/user/${props.state.user._id}`)
-      .then(res => {
-        setUserScore(res.data.score);
-      })
-      .catch(error => {
-        console.error('Error fetching user score:', error);
-      });
-  }, [props.state.user._id]);
+   useEffect(() => {
+    if (props.state.user) {
+      // Fetch the user's score from the backend
+      axios.get(`/api/user/${props.state.user._id}`)
+        .then(res => {
+          setUserScore(res.data.score);
+        })
+        .catch(error => {
+          console.error('Error fetching user score:', error);
+        });
+    }
+  }, [props.state.user]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -145,29 +149,38 @@ function Dashboard(props) {
             <Link to="/dashboard">
               <button className='botton-leve2'>Level 1</button>
             </Link>
-            <Link to="/">
+            <Link to="/auth">
               <button className='back-home'>Home</button>
             </Link>
-            <Link onClick={logout} to="/logout">
+            <Link onClick={console.log('clicked')} to="/">
               <button className="logout-button">Log Out</button>
             </Link>
             <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
           </div>
 
-        <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
+        <h1 className="text-center">Welcome, {props.state.user ? props.state.user.username : 'Guest'}!</h1>
         <h2 className="text-center">Share your tips to beat Sugarland Shuffle!</h2>
         <div className="notes pt">
-        {!props.state.user.notes.length && <p>No notes have been added.</p>}
-
-        {props.state.user.notes.map(note => (
-          <div key={note._id} className="note column flex-container">
-            <h3>{note.text}</h3>
-            <div className="column flex-container">
-              <p>Added By: {props.state.user.username}</p>
-              <button className='delete-button' onClick={() => deleteTask(note._id)}>delete</button>
-            </div>
-          </div>
-        ))}
+          {!props.state.user ? (
+            <p>Loading user data...</p>
+          ) : !props.state.user.notes.length ? (
+            <p>No notes have been added.</p>
+          ) : (
+            props.state.user.notes.map((note) => (
+              <div key={note._id} className="note column flex-container">
+                <h3>{note.text}</h3>
+                <div className="column flex-container">
+                  <p>Added By: {props.state.user.username}</p>
+                  <button
+                    className="delete-button"
+                    onClick={() => deleteTask(note._id)}
+                  >
+                    delete
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
       </div>
       
       <form onSubmit={handleSubmit} className="column dashboard-form flex-container-row">
