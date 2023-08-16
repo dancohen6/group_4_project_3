@@ -1,5 +1,5 @@
-
-import {useEffect, useState} from 'react'
+import Dashboard from './Dashboard'
+import { useEffect, useState } from 'react'
 import ScoreBoard from '../components/ScoreBoard'
 import blueCandy from '../images/blue-candy.png'
 import greenCandy from '../images/green-candy.png'
@@ -173,13 +173,13 @@ const Crush = (props) => {
 
     const saveScore = async (score) => {
         try {
-          await axios.post('/api/score', { userId: props.user._id, score });
-          console.log('Score saved');
-          props.updateScore(score);
+            await axios.post('/api/score', { userId: props.user._id, score });
+            console.log('Score saved');
+            props.updateScore(score);
         } catch (error) {
-          console.error('Error saving score:', error);
+            console.error('Error saving score:', error);
         }
-      };
+    };
 
 
     return (
@@ -203,18 +203,21 @@ const Crush = (props) => {
                         />
                     ))}
                 </div>
-             
-                <ScoreBoard score={scoreDisplay}/>
+
+                {/* <ScoreBoard score={scoreDisplay}/> */}
             </div>
-            <ScoreBoard score={scoreDisplay}/>
-        
-            <button className="small-score-button" onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
+            <div className="score-div">
+                <ScoreBoard score={scoreDisplay} />
+                <button className="small-score-button" onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
+            </div>
+
+
 
 
         </div>
     )
-    
-    
+
+
 }
 
 export default Crush;
