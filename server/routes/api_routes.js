@@ -110,20 +110,28 @@ router.get('/logout', (req, res) => {
 /*** Note routes ***/
 // Create a note
 router.post('/note', isAuthenticated, async (req, res) => {
-  const note = await Note.create({
-    text: req.body.text,
-    author: req.user._id
-  });
+  try {
+    const note = await Note.create({
+      text: req.body.text,
+      author: req.user._id
+    });
 
-  const user = await User.findByIdAndUpdate(req.user._id, {
-    $push: {
-      notes: note._id
-    }
-  }, { new: true }).populate('notes');
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        notes: note._id
+      }
+    }, { new: true }).populate('notes');
 
-  res.send({
-    user
-  });
+    res.send({
+      user
+    });
+  } catch (error) {
+    console.error('Error creating note:', error);
+    res.status(500).send({
+      error: true,
+      message: 'An error occurred while creating the note.'
+    });
+  }
 });
 
 // Get All Notes
@@ -160,6 +168,35 @@ router.delete('/note/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting note:', error);
     res.status(500).json({ message: 'An error occurred while deleting the note.' });
+  }
+});
+
+// Route to save a user's score
+router.post('/score', async (req, res) => {
+  const { userId, score } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, { $set: { score } }, { new: true });
+    return res.json({ user });
+  } catch (error) {
+    console.error('Error saving score:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Route to fetch a user's score
+router.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.json({ score: user.score });
+  } catch (error) {
+    console.error('Error fetching user score:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

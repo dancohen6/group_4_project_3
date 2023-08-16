@@ -1,5 +1,7 @@
 
 import {useEffect, useState} from 'react'
+
+
 import ScoreBoard from '../components/ScoreBoard'
 import blueCandy from '../images/blue-candy.png'
 import greenCandy from '../images/green-candy.png'
@@ -8,6 +10,8 @@ import purpleCandy from '../images/purple-candy.png'
 import redCandy from '../images/red-candy.png'
 import yellowCandy from '../images/yellow-candy.png'
 import blank from '../images/blank.png'
+import axios from 'axios';
+
 
 const width = 8
 const candyColors = [
@@ -19,7 +23,7 @@ const candyColors = [
     greenCandy
 ]
 
-const Crush = () => {
+const Crush = (props) => {
     const [currentColorArrangement, setCurrentColorArrangement] = useState([])
     const [squareBeingDragged, setSquareBeingDragged] = useState(null)
     const [squareBeingReplaced, setSquareBeingReplaced] = useState(null)
@@ -169,29 +173,53 @@ const Crush = () => {
         return () => clearInterval(timer)
     }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
 
+    const saveScore = async (score) => {
+        try {
+            await axios.post('/api/score', { userId: props.user._id, score });
+            console.log('Score saved');
+            props.updateScore(score);
+        } catch (error) {
+            console.error('Error saving score:', error);
+        }
+    };
+
 
     return (
         <div className="app">
-            <div className="game">
-                {currentColorArrangement.map((candyColor, index) => (
-                    <img
-                        key={index}
-                        src={candyColor}
-                        alt={candyColor}
-                        data-id={index}
-                        draggable={true}
-                        onDragStart={dragStart}
-                        onDragOver={(e) => e.preventDefault()}
-                        onDragEnter={(e) => e.preventDefault()}
-                        onDragLeave={(e) => e.preventDefault()}
-                        onDrop={dragDrop}
-                        onDragEnd={dragEnd}
-                    />
-                ))}
+            <div className="game-container">
+                <div className="background-overlay"></div>
+                <div className="game">
+                    {currentColorArrangement.map((candyColor, index) => (
+                        <img
+                            key={index}
+                            src={candyColor}
+                            alt={candyColor}
+                            data-id={index}
+                            draggable={true}
+                            onDragStart={dragStart}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDragEnter={(e) => e.preventDefault()}
+                            onDragLeave={(e) => e.preventDefault()}
+                            onDrop={dragDrop}
+                            onDragEnd={dragEnd}
+                        />
+                    ))}
+                </div>
+
+                {/* <ScoreBoard score={scoreDisplay}/> */}
             </div>
-            <ScoreBoard score={scoreDisplay}/>
+            <div className="score-div">
+                <ScoreBoard score={scoreDisplay} />
+                <button className="small-score-button" onClick={() => saveScore(scoreDisplay)}>Save New High Score</button>
+            </div>
+
+
+
+
         </div>
     )
+
+
 }
 
 export default Crush;

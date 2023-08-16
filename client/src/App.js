@@ -2,25 +2,27 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
+
 // components
 import Loading from './components/Loading';
-import Header from './components/Header';
 import Redirect from './components/Redirect';
-import ScoreBoard from './components/ScoreBoard';
 
 // pages
 import AuthForm from './pages/AuthForm';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
-import Game from './pages/Game';
 import Payment from './pages/Payment';
+import DashboardLevel2 from './pages/DashboardLevel2';
+import GameLevel2 from './pages/GameLevel2';
+
 
 function App() {
   const [state, setState] = useState({
     user: null,
     notes: [],
-    loading: true
+    loading: true,
+    score: 0
   });
 
   useEffect(() => {
@@ -35,8 +37,9 @@ function App() {
   }, []);
 
   return (
+ 
     <>
-      <Header state={state} setState={setState} />
+      {/* <Header state={state} setState={setState} />  header was applying to all pages*/}
 
       {state.loading && <Loading />}
 
@@ -46,31 +49,36 @@ function App() {
         <Route path="/auth" element={(
           <Redirect user={state.user}>
             <AuthForm setState={setState} />
-           
           </Redirect>
         )} />
 
-    
-          <Route path="/dashboard" element={(
+        <Route path="/dashboard" element={(
           <Redirect user={state.user}>
-            <div className= 'dashboardGame' >
-              <Dashboard state={state} setState={setState} />
-              <Game />
+            <div className="dashboardGame">
+              <Dashboard state={state} setState={setState} user={state.user}/>
             </div>
           </Redirect>
         )} />
-         <Route path="/payment" element={(
+
+        <Route path="/payment" element={(
           <Redirect user={state.user}>
             <Payment setState={setState} />
           </Redirect>
         )} />
+         <Route path="/dashboard2" element={(
+          <Redirect user={state.user}>
+            <div className= 'dashboardGameLeve2' >
+              <DashboardLevel2 state={state} setState={setState} />
+              
+            </div>
+          </Redirect>
+         )} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
+    
   );
 }
 
 export default App;
-
-
