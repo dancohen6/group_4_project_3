@@ -6,8 +6,22 @@ import HighScore from '../components/HighScore';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Game from './Game';
+import { useLocation } from 'react-router-dom';
 
 const Dashboard = (props) => {
+  const currentLocation = useLocation();
+  const logout = async e => {
+    e.preventDefault();
+
+    await axios.get('/api/logout');
+
+    props.setState((oldState) => {
+      return {
+        ...oldState,
+        user: null
+      }
+    })
+  }
   const [formData, setFormData] = useState({
     text: ''
   });
@@ -74,6 +88,33 @@ const Dashboard = (props) => {
         <div className="game-container flex-item">
           <Game user={props.user} updateScore={updateScore} />
         </div>
+
+        <div className="form-container">
+          <Link to="/payment">
+            <button className='botton-leve2'>level 2</button>
+          </Link>
+          <Link to="/">
+            <button className='back-home'>home</button>
+          </Link>
+          <Link  
+            onClick={logout} to="/logout">Log Out
+          </Link>
+          <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
+
+          <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
+          <h2 className="text-center">Share your tips to beat Sugarland Shuffle!</h2>
+          <div className="notes">
+            {!props.state.user.notes.length && <p>No notes have been added.</p>}
+
+            {props.state.user.notes.map(note => (
+              <div key={note._id} className="note column">
+                <h3>{note.text}</h3>
+                <div className="column">
+                  <p>Added On: {note.createdAt}</p>
+                  <button onClick={() => deleteTask(note._id)}>delete</button>
+                </div>
+              </div>
+            ))}
 
         <div className="form-container flex-item">
           <div className="button-container">
