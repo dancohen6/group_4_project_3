@@ -90,42 +90,44 @@ const Dashboard = (props) => {
         </div>
 
         <div className="form-container">
-          <Link to="/payment">
-            <button className='botton-leve2'>level 2</button>
-          </Link>
-          <Link to="/">
-            <button className='back-home'>home</button>
-          </Link>
-          <Link  
-            onClick={logout} to="/logout">Log Out
-          </Link>
-          <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
+          <div className="button-container">
+            <Link to="/payment">
+              <button className='botton-leve2'>Level 2</button>
+            </Link>
+            <Link to="/">
+              <button className='back-home'>Home</button>
+            </Link>
+            <Link onClick={logout} to="/logout">
+              <button className="logout-button">Log Out</button>
+            </Link>
+            <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
+          </div>
 
           <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
           <h2 className="text-center">Share your tips to beat Sugarland Shuffle!</h2>
-          <div className="notes">
+          <div className="notes pt">
             {!props.state.user.notes.length && <p>No notes have been added.</p>}
 
             {props.state.user.notes.map(note => (
-              <div key={note._id} className="note column">
+              <div key={note._id} className="note column flex-container">
                 <h3>{note.text}</h3>
-                <div className="column">
-                  <p>Added On: {note.createdAt}</p>
-                  <button onClick={() => deleteTask(note._id)}>delete</button>
+                <div className="column flex-container">
+                  <p>Added By: {props.state.user.username}</p>
+                  <button className="delete-button" onClick={() => deleteTask(note._id)}>delete</button>
                 </div>
               </div>
             ))}
 
         
       </div>
-      <form onSubmit={handleSubmit} className="column dashboard-form flex-container">
+      <form onSubmit={handleSubmit} className="column dashboard-form flex-container-row">
         <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
-        <button>
+        <button className="pointer">
           <FontAwesomeIcon icon={faSquareCaretRight} />
         </button>
       </form>
 
-      {/* Display the ScoreBoard component with the score */}
+      {/* Display ScoreBoard component with the score */}
       <HighScore score={userScore} />
    </div>
   </div >
