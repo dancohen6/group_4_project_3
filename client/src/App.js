@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   return (
- 
+
     <>
       {/* <Header state={state} setState={setState} />  header was applying to all pages*/}
 
@@ -55,33 +55,30 @@ function App() {
         <Route path="/dashboard" element={(
           <Redirect user={state.user}>
             <div className="dashboardGame">
-              <Dashboard state={state} setState={setState} user={state.user}/>
+              <Dashboard state={state} setState={setState} user={state.user} />
             </div>
           </Redirect>
         )} />
 
-        <Route path="/payment" element={(
-          <Redirect user={state.user}>
-            <div className="paymentBord">
-            <h1 className="payh1" >Sugarland Shuffle! level 2</h1>
+        <Route path="/payment" element={
+          <div className="paymentBord">
+            <h1 className="payh1">Sugarland Shuffle! level 2</h1>
+            <Payment user={state.user} setState={setState} />
+          </div>
+        } />
 
-            <Payment setState={setState} />
+        <Route path="/dashboard2" element={(
+          <Redirect user={state.user}>
+            <div className='dashboardGameLeve2 dashboardGame' >
+              <DashboardLevel2 state={state} setState={setState} user={state.user} />
             </div>
           </Redirect>
         )} />
-         <Route path="/dashboard2" element={(
-          <Redirect user={state.user}>
-            <div className= 'dashboardGameLeve2 dashboardGame' >
-              <DashboardLevel2 state={state} setState={setState} user={state.user}/>
-              
-            </div>
-          </Redirect>
-         )} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
-    
+
   );
 }
 
