@@ -228,14 +228,14 @@
    flex-direction: row-reverse;
  }
 
-//  #root {
-//    display: flex;
-//    flex-direction: column;
-//    justify-content: center;
-//    align-items: center;
-//    font-family: 'Lobster', cursive;
-//    font-size: 2rem;
-//    color: #b83cff;
-//    text-shadow: 2px 2px 4px #fff;
-//    background-image: url('./images/vecteezy_iced-confectionery-scene_.jpg');
-//  }
+ .login-page {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Lobster', cursive;
+   font-size: 2rem;
+   color: #b83cff;
+   text-shadow: 2px 2px 4px #fff;
+   background-image: url('./images/vecteezy_iced-confectionery-scene_.jpg');
+ }
