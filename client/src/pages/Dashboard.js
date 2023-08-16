@@ -6,8 +6,22 @@ import HighScore from '../components/HighScore';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Game from './Game';
+import { useLocation } from 'react-router-dom';
 
 const Dashboard = (props) => {
+  const currentLocation = useLocation();
+  const logout = async e => {
+    e.preventDefault();
+
+    await axios.get('/api/logout');
+
+    props.setState((oldState) => {
+      return {
+        ...oldState,
+        user: null
+      }
+    })
+  }
   const [formData, setFormData] = useState({
     text: ''
   });
@@ -75,35 +89,34 @@ const Dashboard = (props) => {
           <Game user={props.user} updateScore={updateScore} />
         </div>
 
-        <div className="form-container flex-item">
-          <div className="button-container">
-            <Link to="/payment">
-              <button className="botton-leve2">Level 2</button>
-            </Link>
-            <Link to="/">
-              <button className="back-home">Home</button>
-            </Link>
-            <button title="install" className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
-          </div>
-      <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
-      <h2 className="text-center">Share your tips to beat Sugarland Shuffle</h2>
-      <div className="notes">
-        {!props.state.user.notes.length && <p className="text-center">No notes have been added.</p>}
+        <div className="form-container">
+          <Link to="/payment">
+            <button className='botton-leve2'>level 2</button>
+          </Link>
+          <Link to="/">
+            <button className='back-home'>home</button>
+          </Link>
+          <Link  
+            onClick={logout} to="/logout">Log Out
+          </Link>
+          <button title='install' className="btn btn-sm btn-dark" id="buttonInstall">Install!</button>
 
-        {props.state.user.notes.map(note => (
-          <div key={note._id} className="note column flex-container">
-            <h3>{note.text}</h3>
-            <div className="column flex-container">
-              <p>Added On: {note.createdAt}</p>
-              <button
-                onClick={() => deleteTask(note._id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+          <h1 className="text-center">Welcome, {props.state.user.username}!</h1>
+          <h2 className="text-center">Share your tips to beat Sugarland Shuffle!</h2>
+          <div className="notes">
+            {!props.state.user.notes.length && <p>No notes have been added.</p>}
+
+            {props.state.user.notes.map(note => (
+              <div key={note._id} className="note column">
+                <h3>{note.text}</h3>
+                <div className="column">
+                  <p>Added On: {note.createdAt}</p>
+                  <button onClick={() => deleteTask(note._id)}>delete</button>
+                </div>
+              </div>
+            ))}
+
+        
       </div>
       <form onSubmit={handleSubmit} className="column dashboard-form flex-container">
         <input value={formData.text} onChange={handleInputChange} type="text" placeholder="Message" />
@@ -114,10 +127,14 @@ const Dashboard = (props) => {
 
       {/* Display ScoreBoard component with the score */}
       <HighScore score={userScore} />
-    </div>
-      </div >
-    </main >
+   </div>
+  </div >
+   </main >
+
   );
 };
+
+
+
 
 export default Dashboard;
