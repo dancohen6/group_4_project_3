@@ -35,3 +35,7 @@ Anthony DiPipolo: [AnthonyDipopolo](https://github.com/AnthonyDipopolo) | anthon
 Matthew Lazarowitz: [matthewlazarowitz](https://github.com/matthewlazarowitz) | matthewlazarowitz@outlook.com
 
 Dan Cohen: [dancohen6](https://github.com/dancohen6) | dzcsix@gmail.com
+
+![Screen Shot 2023-08-16 at 12 35 53 PM](https://github.com/dancohen6/group_4_project_3/assets/134304225/73744129-77bb-446f-888e-6b411dad0609)
+
+

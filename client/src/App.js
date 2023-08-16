@@ -62,13 +62,22 @@ function App() {
 
         <Route path="/payment" element={(
           <Redirect user={state.user}>
+            <div className="paymentBord">
+            <h1 className="payh1" >Sugarland Shuffle! level 2</h1>
+
             <Payment setState={setState} />
+            </div>
           </Redirect>
         )} />
          <Route path="/dashboard2" element={(
           <Redirect user={state.user}>
+<<<<<<< HEAD
             <div className= 'dashboardGameLeve2 dashboardGame' >
               <DashboardLevel2 state={state} setState={setState} user={state.user}/>
+=======
+            <div className= 'dashboardGame' >
+              <DashboardLevel2 state={state} setState={setState} />
+>>>>>>> af343b1566e595e8fb21ffa1c8741bbc0f38f863
               
             </div>
           </Redirect>
